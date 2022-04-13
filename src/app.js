@@ -8,6 +8,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/guests", require("./guests/guestRouter"));
+app.use("/rooms", require("./rooms/roomRouter"));
 
 app.get("/", () => {
     console.log("Hello World!");
