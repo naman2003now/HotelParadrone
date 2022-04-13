@@ -1,2 +1,3 @@
 201 => created
-23505 => already exists
+23505 => primary key already exists
+23503 => foregn key doesn't exist

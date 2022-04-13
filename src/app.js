@@ -9,6 +9,7 @@ app.use(express.json());
 
 app.use("/guests", require("./guests/guestRouter"));
 app.use("/rooms", require("./rooms/roomRouter"));
+app.use("/bookings", require("./bookings/bookingRouter"));
 
 app.get("/", () => {
     console.log("Hello World!");

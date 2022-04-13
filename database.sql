@@ -7,11 +7,23 @@ CREATE TABLE guests(
 );
 
 CREATE TABLE rooms(
-    number INT NOT NULL PRIMARY KEY,
+    number VARCHAR(64) NOT NULL PRIMARY KEY,
     price INT NOT NULL,
     advance INT NOT NULL,
     status VARCHAR(255) NOT NULL DEFAULT 'free',
     type VARCHAR(255) NOT NULL,
 
     UNIQUE(number)
+);
+
+CREATE TABLE bookings(
+    id BIGSERIAL NOT NULL PRIMARY KEY,
+    booking_from DATE NOT NULL,
+    booking_to DATE NOT NULL,
+    status VARCHAR(255) NOT NULL DEFAULT 'done',
+
+    guest_username VARCHAR(255) NOT NULL REFERENCES guests(username),
+    room_number VARCHAR(64) NOT NULL REFERENCES rooms(number),
+
+    UNIQUE(id)
 );
