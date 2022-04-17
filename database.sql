@@ -27,3 +27,27 @@ CREATE TABLE bookings(
 
     UNIQUE(id)
 );
+
+CREATE TABLE employees(
+    id BIGSERIAL NOT NULL PRIMARY KEY,
+    salary INT NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(255) NOT NULL,
+    status VARCHAR(255) NOT NULL DEFAULT 'inactive',
+
+    UNIQUE(id)
+);
+
+CREATE TABLE services(
+    id BIGSERIAL NOT NULL PRIMARY KEY,
+    role VARCHAR(255) NOT NULL,
+    description VARCHAR(255),
+
+    employee_id BIGINT REFERENCES employees(id),
+    guest_username VARCHAR(255) NOT NULL REFERENCES guests(username),
+    room_number VARCHAR(255) NOT NULL REFERENCES rooms(number),
+
+    UNIQUE(id)
+)
+
