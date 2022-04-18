@@ -19,11 +19,18 @@ const authenticateGuest = (req, res, next) => {
 				next();
 			} else {
 				req.body.guest_username = username;
-				next();
+				getGuestBookings(req.body.guest_username)
+					.then((data) => {
+						res.status(201).send(data);
+					})
+					.catch((err) => {
+						res.status(406).send(err);
+					});
 			}
 		});
+	} else {
+		next();
 	}
-	next();
 };
 
 router.get("/", (req, res) => {
@@ -36,13 +43,18 @@ router.get("/", (req, res) => {
 		});
 });
 
-router.get("/bookings", authenticateGuest, (req, res) => {
+router.get("/bookings", authenticateGuest, async (req, res) => {
 	getGuestBookings(req.body.guest_username)
 		.then((data) => {
-			res.status(200).json(data);
+			console.log(data);
+			try {
+				res.status(201).send(data);
+			} catch (err) {
+				console.log(err);
+			}
 		})
 		.catch((err) => {
-			res.status(406).json(err);
+			res.status(406).send(err);
 		});
 });
 
